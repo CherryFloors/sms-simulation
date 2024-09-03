@@ -20,7 +20,7 @@ messages = 1000  # Total messages to send
 failure_rate = 0.1  # Fraction of failed messages (between 0 and 1)
 mean_send_time = 0.1  # Average send time in seconds
 sdev_send_time = 0.025  # Standard deviation of send time in seconds
-refresh = 0.5  # Refresh rate in seconds of progress UI
+refresh = 0.5  # Refresh time in seconds of progress UI
 ```
 
 3. **Run** - The simulation can be started with default settings using the `sms` cli via the following command:
