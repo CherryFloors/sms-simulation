@@ -7,6 +7,7 @@ from textwrap import dedent
 from dataclasses import dataclass
 from queue import Empty
 import asyncio
+import os
 
 import click
 
@@ -14,6 +15,11 @@ from sms.producer import SMSProducer
 from sms.sender import SMSSender
 from sms.config import SimulationConfig
 from sms.messages import SMSMessage, ServicedMessage
+
+
+_RESET_CURSOR = "\033[F"
+if os.name == "nt":
+    _RESET_CURSOR = "\x1b[A"
 
 
 @dataclass
@@ -275,7 +281,7 @@ class Simulator:
         Async method to updated the progress monitor. Meant to run as an asyncio.task. Ending the task should be
         signaled by setting `Simulator.running` attribute to `False`
         """
-        clear = "\033[F" * 8 + (" " * 30 + "\n") * 8 + "\033[F" * 9
+        clear = _RESET_CURSOR * 8 + (" " * 30 + "\n") * 8 + _RESET_CURSOR * 9
         click.echo(self.stats.render())
         while self.running:
             click.echo(clear)
