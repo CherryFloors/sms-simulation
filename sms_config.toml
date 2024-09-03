@@ -1,0 +1,7 @@
+[sms-simulation]
+senders = 4
+messages = 1000
+failure_rate = 0.1
+mean_send_time = 0.1
+sdev_send_time = 0.025
+refresh = 0.5
