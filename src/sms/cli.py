@@ -44,7 +44,10 @@ def run(config: str | None) -> None:
         sys.exit(1)
 
     click.echo("Starting simulation with the following settings:")
-    click.echo(_config)
+    click.echo(f"  messages = {_config.messages}")
+    click.echo(f"  refresh  = {_config.refresh}")
+    for sender in _config.senders:
+        click.echo(f"  sender   = {sender}")
 
     simulation = Simulator.from_config(_config)
     asyncio.run(simulation.run())

@@ -1,7 +1,24 @@
 [sms-simulation]
-senders = 4  # Number of senders
 messages = 1000  # Total messages to send
+refresh = 0.5  # Refresh time in seconds of progress UI
+  
+# Senders are configured with an array of tables. Number of senders cant exceed cpu count
+[[sms-simulation.senders]]
 failure_rate = 0.1  # Fraction of failed messages (between 0 and 1)
 mean_send_time = 0.1  # Average send time in seconds
 sdev_send_time = 0.025  # Standard deviation of send time in seconds
-refresh = 0.5  # Refresh time in seconds of progress UI
+
+[[sms-simulation.senders]]
+failure_rate = 0.9
+mean_send_time = 0.1
+sdev_send_time = 0.025
+
+[[sms-simulation.senders]]
+failure_rate = 0.3
+mean_send_time = 0.2
+sdev_send_time = 0.05
+
+[[sms-simulation.senders]]
+failure_rate = 0.1
+mean_send_time = 0.2
+sdev_send_time = 0.05

@@ -90,7 +90,8 @@ class SimulationStatistics:
 
     def update(self, serviced: ServicedMessage) -> None:
         """
-        Update the attributes based on the contents of a `ServicedMessage`
+        Update the attributes based on the contents of a `ServicedMessage`. Update method counts time spent on failed
+        messages towards the `average_seconds_per_message` calculation.
 
         Parameters
         ----------
@@ -248,18 +249,18 @@ class Simulator:
         `Simulator`
         """
 
-        max_q_size = 2 * config.senders
+        max_q_size = 2 * len(config.senders)
         producer_queue: Queue[SMSMessage] = Queue(maxsize=max_q_size)
         _result_queue: Queue[ServicedMessage] = Queue(maxsize=max_q_size)
 
         _senders: list[SMSSender] = []
-        for _ in range(config.senders):
+        for sender_config in config.senders:
             _sender = SMSSender(
                 incoming_messages=producer_queue,
                 serviced_messages=_result_queue,
-                failure_rate=config.failure_rate,
-                mean_send_time_seconds=config.mean_send_time,
-                sdev_send_time_seconds=config.sdev_send_time,
+                failure_rate=sender_config.failure_rate,
+                mean_send_time_seconds=sender_config.mean_send_time,
+                sdev_send_time_seconds=sender_config.sdev_send_time,
             )
             _senders.append(_sender)
 
